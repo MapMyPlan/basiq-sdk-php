@@ -1,17 +1,23 @@
 {
-    "name": "basiqio/basiq-sdk-php",
+    "name": "mapmyplan/basiq-sdk-php",
     "require": {
         "guzzlehttp/guzzle": "~6.0"
     },
     "description": "PHP SDK for Basiq.io API",
-    "keywords": ["basiq","finance","api","sdk"],
-    "homepage": "https://github.com/basiqio/basiq-sdk-php",
+    "keywords": ["mmp","basiq","finance","api","sdk"],
+    "homepage": "https://github.com/MapMyPlan/basiq-sdk-php",
     "license": "MIT",
     "authors": [
         {
             "name": "Nenad Lukic",
             "email": "nenad@basiq.io",
             "homepage": "https://basiq.io",
+            "role": "Developer"
+        },
+        {
+            "name": "Rubens Peculis",
+            "email": "rubens@mapmyplan.com",
+            "homepage": "https://www.mapmyplan.com.au",
             "role": "Developer"
         }
     ],
