@@ -1,18 +1,18 @@
 <?php 
 
-namespace Basiq\Services;
+namespace MMPBasiq\Services;
 
-use Basiq\Services\ConnectionService;
-use Basiq\Entities\User;
-use Basiq\Entities\Job;
-use Basiq\Entities\Account;
-use Basiq\Entities\Transaction;
-use Basiq\Entities\TransactionList;
-use Basiq\Entities\TransactionV2;
-use Basiq\Entities\TransactionListV2;
-use Basiq\Entities\Connection;
-use Basiq\Utilities\ResponseParser;
-use Basiq\Utilities\FilterBuilder;
+use MMPBasiq\Services\ConnectionService;
+use MMPBasiq\Entities\User;
+use MMPBasiq\Entities\Job;
+use MMPBasiq\Entities\Account;
+use MMPBasiq\Entities\Transaction;
+use MMPBasiq\Entities\TransactionList;
+use MMPBasiq\Entities\TransactionV2;
+use MMPBasiq\Entities\TransactionListV2;
+use MMPBasiq\Entities\Connection;
+use MMPBasiq\Utilities\ResponseParser;
+use MMPBasiq\Utilities\FilterBuilder;
 
 class UserService extends Service {
 

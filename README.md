@@ -25,7 +25,7 @@ You can grab your API key on the [dashboard](http://dashboard.basiq.io).
 Now that you have your API key, you can use the following command to install the SDK:
 
 ```bash
-composer require basiqio/basiq-sdk-php
+composer require mapmyplan/basiq-sdk-php
 ```
 
 Next step is to import the used classes into your namespace.
@@ -48,7 +48,7 @@ use Basiq\Services\UserService;
 You can fetch a list of supported financial institutions. The function returns a list of Institution structs.
 
 ```php
-use Basiq\Session;
+use MMPBasiq\Session;
 
 $session = new Session("YOUR_API_KEY");
 
@@ -58,7 +58,7 @@ $institutions = $session->getInstitutions();
 You can specify the version of API when instantiating Session object. When the version is not specified, default version is 1.0.
 
 ```php
-use Basiq\Session;
+use MMPBasiq\Session;
 
 $session = new Session("YOUR_API_KEY", "2.0");
 
@@ -70,7 +70,7 @@ $institutions = $session->getInstitutions();
 When a new connection request is made, the server will create a job that will link user's financial institution with your app.
 
 ```php
-use Basiq\Session;
+use MMPBasiq\Session;
 
 $session = new Session("YOUR_API_KEY");
 
@@ -88,8 +88,8 @@ In this example, the function returns a transactions list struct which is filter
 through transactions list by calling Next().
 
 ```php
-use Basiq\Session;
-use Basiq\Utilities\FilterBuilder;
+use MMPBasiq\Session;
+use MMPBasiq\Utilities\FilterBuilder;
 
 $session = new Session("YOUR_API_KEY");
 
@@ -134,7 +134,7 @@ methods in the form of comparison(field, value).
 
 Example:
 ```php
-use Basiq\Utilities\FilterBuilder;
+use MMPBasiq\Utilities\FilterBuilder;
 
 $fb = new FilterBuilder();
 $fb->eq("connection->id", "conn-id-213-id")->gt("transaction.postDate", "2018-01-01")

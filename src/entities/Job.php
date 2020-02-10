@@ -1,8 +1,8 @@
 <?php
 
-namespace Basiq\Entities;
+namespace MMPBasiq\Entities;
 
-use Basiq\Services\ConnectionService;
+use MMPBasiq\Services\ConnectionService;
 
 class Job extends Entity {
 

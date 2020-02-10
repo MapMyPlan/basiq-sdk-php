@@ -1,6 +1,6 @@
 <?php
 
-namespace Basiq\Exceptions;
+namespace MMPBasiq\Exceptions;
 
 class HttpResponseException extends \Exception {
 

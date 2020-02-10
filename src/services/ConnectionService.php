@@ -1,10 +1,10 @@
 <?php
 
-namespace Basiq\Services;
+namespace MMPBasiq\Services;
 
-use Basiq\Entities\Connection;
-use Basiq\Entities\Job;
-use Basiq\Utilities\ResponseParser;
+use MMPBasiq\Entities\Connection;
+use MMPBasiq\Entities\Job;
+use MMPBasiq\Utilities\ResponseParser;
 
 
 class ConnectionService extends Service {

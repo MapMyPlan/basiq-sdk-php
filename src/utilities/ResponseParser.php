@@ -1,8 +1,8 @@
 <?php
 
-namespace Basiq\Utilities;
+namespace MMPBasiq\Utilities;
 
-use Basiq\Exceptions\HttpResponseException;
+use MMPBasiq\Exceptions\HttpResponseException;
 
 class ResponseParser {
 

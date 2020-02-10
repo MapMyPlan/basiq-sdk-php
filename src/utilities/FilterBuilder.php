@@ -1,6 +1,6 @@
 <?php
 
-namespace Basiq\utilities;
+namespace MMPBasiq\utilities;
 
 class FilterBuilder {
 

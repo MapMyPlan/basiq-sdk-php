@@ -1,8 +1,8 @@
 <?php
 
-namespace Basiq\Entities;
+namespace MMPBasiq\Entities;
 
-use Basiq\Utilities\ResponseParser;
+use MMPBasiq\Utilities\ResponseParser;
 
 class TransactionListV2 extends Entity {
 

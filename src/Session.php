@@ -1,10 +1,10 @@
 <?php
 
-namespace Basiq;
+namespace MMPBasiq;
 
 use GuzzleHttp\Client;
-use Basiq\Utilities\ResponseParser;
-use Basiq\Services\UserService;
+use MMPBasiq\Utilities\ResponseParser;
+use MMPBasiq\Services\UserService;
 
 class Session {
 

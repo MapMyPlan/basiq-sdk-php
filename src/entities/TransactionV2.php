@@ -1,6 +1,6 @@
 <?php
 
-namespace Basiq\Entities;
+namespace MMPBasiq\Entities;
 
 class TransactionV2 extends Entity {
 
