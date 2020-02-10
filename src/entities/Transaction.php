@@ -4,7 +4,6 @@ namespace MMPBasiq\Entities;
 
 class Transaction extends Entity
 {
-    public $id;
     public $status;
     public $description;
     public $amount;

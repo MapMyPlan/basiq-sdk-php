@@ -185,7 +185,7 @@ class UserService extends Service
         }, $body["data"]);
     }
 
-    public function getAllConnections($connectionService, $user, MMPBasiq\utitlities\FilterBuilder $filter = null)
+    public function getAllConnections($connectionService, $user, \MMPBasiq\utitlities\FilterBuilder $filter = null)
     {
         $url = "users/" . $user->id . "/connections";
 

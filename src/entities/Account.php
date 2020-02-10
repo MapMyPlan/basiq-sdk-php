@@ -4,7 +4,6 @@ namespace MMPBasiq\Entities;
 
 class Account extends Entity
 {
-    public $id;
     public $accountNo;
     public $name;
     public $currency;

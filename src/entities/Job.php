@@ -8,7 +8,6 @@ class Job extends Entity
 {
     private $service;
     
-    public $id;
     public $created;
     public $updated;
     public $steps;
@@ -21,7 +20,6 @@ class Job extends Entity
         $this->updated = isset($data["updated"]) ? new \DateTime($data["updated"]) : null;
         $this->steps = isset($data["steps"]) ? (array)$data["steps"] : [];
         $this->links = isset($data["links"]) ? $data["links"] : [];
-
         $this->service = $service;
     }
 
