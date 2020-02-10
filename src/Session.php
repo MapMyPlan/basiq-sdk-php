@@ -6,8 +6,8 @@ use GuzzleHttp\Client;
 use MMPBasiq\Utilities\ResponseParser;
 use MMPBasiq\Services\UserService;
 
-class Session {
-
+class Session
+{
     private $apiKey;
 
     private $accessToken;
@@ -16,11 +16,12 @@ class Session {
 
     private $sessionTimestamp;
 
-    private $tokenValidity; 
+    private $tokenValidity;
     
     private $apiVersion;
 
-    public function __construct($apiKey, $apiVersion="2.0") {
+    public function __construct($apiKey, $apiVersion="2.0")
+    {
         $this->apiClient = new Client([
             // Base URI is used with relative requests
             'base_uri' => 'http://au-api.basiq.io',
@@ -38,7 +39,8 @@ class Session {
         $this->accessToken = $this->getAccessToken();
     }
 
-    public function getApiVersion() {
+    public function getApiVersion()
+    {
         return $this->apiVersion;
     }
  
@@ -101,5 +103,4 @@ class Session {
     {
         return (new UserService($this))->forUser($id);
     }
-
 }
