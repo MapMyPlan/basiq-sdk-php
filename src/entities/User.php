@@ -5,8 +5,8 @@ namespace MMPBasiq\Entities;
 use \MMPBasiq\Services\UserService;
 use \MMPBasiq\Services\ConnectionService;
 
-class User extends Entity {
-
+class User extends Entity
+{
     public $email;
     public $mobile;
     public $connections;

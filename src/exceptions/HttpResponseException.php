@@ -2,8 +2,8 @@
 
 namespace MMPBasiq\Exceptions;
 
-class HttpResponseException extends \Exception {
-
+class HttpResponseException extends \Exception
+{
     public $response;
     public $statusCode;
     public $message;
@@ -22,6 +22,4 @@ class HttpResponseException extends \Exception {
         $this->statusCode = $statusCode;
         $this->message = $error;
     }
-
-
 }

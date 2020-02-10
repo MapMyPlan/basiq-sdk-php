@@ -4,8 +4,8 @@ namespace MMPBasiq\Entities;
 
 use MMPBasiq\Services\ConnectionService;
 
-class Job extends Entity {
-
+class Job extends Entity
+{
     private $service;
     
     public $id;

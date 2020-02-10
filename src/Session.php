@@ -20,7 +20,7 @@ class Session {
     
     private $apiVersion;
 
-    public function __construct($apiKey, $apiVersion="1.0") {
+    public function __construct($apiKey, $apiVersion="2.0") {
         $this->apiClient = new Client([
             // Base URI is used with relative requests
             'base_uri' => 'http://au-api.basiq.io',
@@ -28,7 +28,7 @@ class Session {
             "headers" => [
                 "Content-Type" => "application/json"
             ],
-            'timeout'  => 30.0,
+            'timeout'  => 60.0,
             "http_errors" => false
         ]);
 

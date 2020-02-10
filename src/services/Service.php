@@ -6,7 +6,7 @@ class Service
 {
     public $session;
 
-    public function __construct(\Basiq\Session $session)
+    public function __construct(\MMPBasiq\Session $session)
     {
         $this->session = $session;
     }

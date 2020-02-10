@@ -4,12 +4,13 @@ namespace MMPBasiq\Entities;
 
 use MMPBasiq\Utilities\ResponseParser;
 
-class TransactionListV2 extends Entity {
-
+class TransactionListV2 extends Entity
+{
     public $data;
     public $links;
     public $session;
-  
+    public $limit;
+
     public function __construct($data, $session, $limit)
     {
         $this->data = $this->parseData($data["data"]);
@@ -42,7 +43,7 @@ class TransactionListV2 extends Entity {
         $this->data = $body["data"];
         $this->links = $body["links"];
 
-        return true;     
+        return true;
     }
 
     private function parseData($data)

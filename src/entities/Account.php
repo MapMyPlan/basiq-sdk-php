@@ -2,8 +2,8 @@
 
 namespace MMPBasiq\Entities;
 
-class Account extends Entity {
-
+class Account extends Entity
+{
     public $id;
     public $accountNo;
     public $name;
@@ -30,5 +30,4 @@ class Account extends Entity {
         $this->connection = $data["connection"];
         $this->status = $data["status"];
     }
-
 }

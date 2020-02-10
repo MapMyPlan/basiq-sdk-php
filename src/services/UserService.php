@@ -1,8 +1,7 @@
-<?php 
+<?php
 
 namespace MMPBasiq\Services;
 
-use MMPBasiq\Services\ConnectionService;
 use MMPBasiq\Entities\User;
 use MMPBasiq\Entities\Job;
 use MMPBasiq\Entities\Account;
@@ -14,9 +13,10 @@ use MMPBasiq\Entities\Connection;
 use MMPBasiq\Utilities\ResponseParser;
 use MMPBasiq\Utilities\FilterBuilder;
 
-class UserService extends Service {
-
-    public function create($data = []) {
+class UserService extends Service
+{
+    public function create($data = [])
+    {
         if (!isset($data["email"]) && !isset($data["mobile"])) {
             throw new \InvalidArgumentException("No valid parameters provided");
         }
@@ -36,13 +36,15 @@ class UserService extends Service {
         return (new User($this, ResponseParser::parse($response)));
     }
 
-    public function forUser($id) {
+    public function forUser($id)
+    {
         return (new User($this, [
             "id" => $id
         ]));
     }
 
-    public function get($id) {
+    public function get($id)
+    {
         $response = $this->session->apiClient->get("/users/" . $id, [
             "headers" => [
                 "Content-type" => "application/json",
@@ -53,7 +55,8 @@ class UserService extends Service {
         return (new User($this, ResponseParser::parse($response)));
     }
 
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         if (!isset($id)) {
             throw new \InvalidArgumentException("No id provided");
         }
@@ -76,7 +79,8 @@ class UserService extends Service {
         return (new User($this, ResponseParser::parse($response)));
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         if (!isset($id)) {
             throw new \InvalidArgumentException("No id provided");
         }
@@ -181,7 +185,7 @@ class UserService extends Service {
         }, $body["data"]);
     }
 
-    public function getAllConnections($connectionService, $user, $filter = null)
+    public function getAllConnections($connectionService, $user, MMPBasiq\utitlities\FilterBuilder $filter = null)
     {
         $url = "users/" . $user->id . "/connections";
 

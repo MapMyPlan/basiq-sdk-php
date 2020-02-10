@@ -2,8 +2,8 @@
 
 namespace MMPBasiq\Entities;
 
-class TransactionV2 extends Entity {
-
+class TransactionV2 extends Transaction
+{
     public $id;
     public $type;
     public $status;
@@ -18,23 +18,10 @@ class TransactionV2 extends Entity {
     public $transactionDate;
     public $direction;
     public $subclass;
-  
+
     public function __construct($data)
     {
-        $this->id = $data["id"];
+        parent::__construct($data);
         $this->type = $data["type"];
-        $this->status = $data["status"];
-        $this->description = $data["description"];
-        $this->amount = $data["amount"];
-        $this->account = $data["account"];
-        $this->balance = $data["balance"];
-        $this->class = $data["class"];
-        $this->institution = $data["institution"];
-        $this->connection = $data["connection"];
-        $this->postDate = $data["postDate"];
-        $this->transactionDate = $data["transactionDate"];
-        $this->direction = $data["direction"];
-        $this->subclass = $data["subClass"];
     }
-
 }

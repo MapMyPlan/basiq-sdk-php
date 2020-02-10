@@ -3,10 +3,11 @@
 namespace MMPBasiq\Utilities;
 
 use MMPBasiq\Exceptions\HttpResponseException;
+use Psr\Http\Message\ResponseInterface;
 
-class ResponseParser {
-
-    public static function parse(\Psr\Http\Message\ResponseInterface $response)
+class ResponseParser
+{
+    public static function parse(ResponseInterface $response)
     {
         $body = $response->getBody();
 
@@ -27,5 +28,4 @@ class ResponseParser {
 
         return null;
     }
-
 }

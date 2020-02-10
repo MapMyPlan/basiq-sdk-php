@@ -2,10 +2,7 @@
 
 namespace MMPBasiq\Entities;
 
-class Entity {
-
+class Entity
+{
     public $id;
-
-    
-
 }

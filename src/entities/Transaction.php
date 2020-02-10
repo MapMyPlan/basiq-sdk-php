@@ -2,8 +2,8 @@
 
 namespace MMPBasiq\Entities;
 
-class Transaction extends Entity {
-
+class Transaction extends Entity
+{
     public $id;
     public $status;
     public $description;
@@ -30,5 +30,4 @@ class Transaction extends Entity {
         $this->postDate = $data["postDate"];
         $this->transactionDate = $data["transactionDate"];
     }
-
 }

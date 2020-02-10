@@ -6,9 +6,8 @@ use MMPBasiq\Entities\Connection;
 use MMPBasiq\Entities\Job;
 use MMPBasiq\Utilities\ResponseParser;
 
-
-class ConnectionService extends Service {
-
+class ConnectionService extends Service
+{
     protected $user;
 
     public function __construct($session, $user)
@@ -17,7 +16,8 @@ class ConnectionService extends Service {
         $this->user = $user;
     }
 
-    public function create($data = []) {
+    public function create($data = [])
+    {
         if (!isset($data["institutionId"]) || !isset($data["loginId"]) || !isset($data["password"])) {
             throw new \InvalidArgumentException("Invalid parameters provided");
         }
@@ -44,7 +44,8 @@ class ConnectionService extends Service {
         return (new Job($this, $body));
     }
 
-    public function update($connectionId, $password) {
+    public function update($connectionId, $password)
+    {
         if (!isset($password)) {
             throw new \InvalidArgumentException("Invalid parameters provided");
         }
@@ -118,7 +119,8 @@ class ConnectionService extends Service {
         return null;
     }
 
-    public function forConnection($id) {
+    public function forConnection($id)
+    {
         return (new Connection($this, $this->user, [
             "id" => $id
         ]));

@@ -32,13 +32,13 @@ Next step is to import the used classes into your namespace.
 A list of classes you will probably use the most:
 ```php
 // Used to handle the token session
-use Basiq\Session;
+use MMPBasiq\Session;
 
 // Used to manipulate jobs and connections
-use Basiq\Services\ConnectionService;
+use MMPBasiq\Services\ConnectionService;
 
 // Used to manipulate users
-use Basiq\Services\UserService;
+use MMPBasiq\Services\UserService;
 ```
 
 ## Common usage examples
