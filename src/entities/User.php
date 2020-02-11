@@ -2,8 +2,8 @@
 
 namespace MMPBasiq\Entities;
 
-use \MMPBasiq\Services\UserService;
-use \MMPBasiq\Services\ConnectionService;
+use MMPBasiq\Services\UserService;
+use MMPBasiq\Services\ConnectionService;
 
 class User extends Entity
 {

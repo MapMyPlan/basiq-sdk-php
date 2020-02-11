@@ -2,11 +2,13 @@
 
 namespace MMPBasiq\Services;
 
+use MMPBasiq\Session;
+
 class Service
 {
     public $session;
 
-    public function __construct(\MMPBasiq\Session $session)
+    public function __construct(Session $session)
     {
         $this->session = $session;
     }
