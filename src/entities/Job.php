@@ -2,12 +2,14 @@
 
 namespace MMPBasiq\Entities;
 
+use MMPBasiq\Exceptions\BasiqJobFailed;
+use MMPBasiq\Exceptions\BasiqJobTimeoutException;
 use MMPBasiq\Services\ConnectionService;
 
 class Job extends Entity
 {
     private $service;
-    
+
     public $created;
     public $updated;
     public $steps;
@@ -18,7 +20,7 @@ class Job extends Entity
         $this->id = $data["id"];
         $this->created = isset($data["created"]) ? new \DateTime($data["created"]) : null;
         $this->updated = isset($data["updated"]) ? new \DateTime($data["updated"]) : null;
-        $this->steps = isset($data["steps"]) ? (array)$data["steps"] : [];
+        $this->steps = isset($data["steps"]) ? (array) $data["steps"] : [];
         $this->links = isset($data["links"]) ? $data["links"] : [];
         $this->service = $service;
     }
@@ -52,20 +54,15 @@ class Job extends Entity
         while (true) {
             $job = $this->service->getJob($this->id);
 
-            for ($i = 0; $i < count($job->steps); $i++) {
-                if (time() - $start > $timeout) {
-                    throw new Exception("Polling operation timed out");
-                }
-                $step = $job->steps[$i];
-                if ($step["title"] === "verify-credentials") {
-                    if ($step["status"] === "success") {
-                        return $this->service->get($job->getConnectionId());
-                    }
-                    if ($step["status"] === "failed") {
-                        return null;
-                    }
-                }
-                $i++;
+            if (time() - $start > $timeout) {
+                throw new BasiqJobTimeoutException('Connection');
+            }
+            $step = $this->getJobStepByTitle($job, 'verify-credentials');
+            if ($step["status"] === "success") {
+                return $this->service->get($job->getConnectionId());
+            }
+            if ($step["status"] === "failed") {
+                throw new BasiqJobFailed('Verify credentials');
             }
 
             sleep($interval / 1000);
@@ -79,23 +76,45 @@ class Job extends Entity
         while (true) {
             $job = $this->service->getJob($this->id);
 
-            for ($i = 0; $i < count($job->steps); $i++) {
-                if (time() - $start > $timeout) {
-                    throw new Exception("Polling operation timed out");
-                }
-                $step = $job->steps[$i];
-                if ($step["title"] === "retrieve-transactions") {
-                    if ($step["status"] === "success") {
-                        return $this->service->get($job->getConnectionId());
-                    }
-                    if ($step["status"] === "failed") {
-                        return null;
-                    }
-                }
-                $i++;
-            }
 
+            if (time() - $start > $timeout) {
+                throw new BasiqJobTimeoutException('Transaction');
+            }
+            $step = $this->getJobStepByTitle($job, 'retrieve-transactions');
+            if ($step["status"] === "success") {
+                return $this->service->get($job->getConnectionId());
+            }
+            if ($step["status"] === "failed") {
+                throw new BasiqJobFailed('Retrieve transactions');
+            }
             sleep($interval / 1000);
         }
+    }
+
+    public function waitForAccounts($interval, $timeout)
+    {
+        $start = time();
+        while (true) {
+            $job = $this->service->getJob($this->id);
+            if (time() - $start > $timeout) {
+                throw new BasiqJobTimeoutException('Accounts');
+            }
+            $step = $this->getJobStepByTitle($job, 'retrieve-accounts');
+            if ($step['status'] === 'success') {
+                return $this->service->get($job->getConnectionId());
+            }
+            if ($step['status'] === 'failed') {
+                throw new BasiqJobFailed('Retrieve accounts');
+            }
+            sleep($interval / 1000);
+        }
+    }
+
+    protected function getJobStepByTitle(Job $job, string $title): array
+    {
+        $steps = $job->steps;
+        return array_filter($steps, function ($value, $key) use ($title) {
+            return $key === 'title' && $value === $title;
+        });
     }
 }
