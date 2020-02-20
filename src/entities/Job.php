@@ -113,8 +113,10 @@ class Job extends Entity
     protected function getJobStepByTitle(Job $job, string $title): array
     {
         $steps = $job->steps;
-        return array_filter($steps, function ($value, $key) use ($title) {
-            return $key === 'title' && $value === $title;
+        $steps = array_filter($steps, function ($value) use ($title) {
+            return $value['title'] == $title;
         });
+        return !empty($steps) ? reset($steps) : [];
+
     }
 }
