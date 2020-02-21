@@ -10,6 +10,8 @@ use MMPBasiq\Entities\TransactionList;
 use MMPBasiq\Entities\TransactionV2;
 use MMPBasiq\Entities\TransactionListV2;
 use MMPBasiq\Entities\Connection;
+use MMPBasiq\Exceptions\BasiqDateValidationException;
+use MMPBasiq\Utilities\DateValidator;
 use MMPBasiq\Utilities\ResponseParser;
 use MMPBasiq\Utilities\FilterBuilder;
 
@@ -17,20 +19,20 @@ class UserService extends Service
 {
     public function create($data = [])
     {
-        if (!isset($data["email"]) && !isset($data["mobile"])) {
-            throw new \InvalidArgumentException("No valid parameters provided");
+        if (!isset($data['email']) && !isset($data['mobile'])) {
+            throw new \InvalidArgumentException('No valid parameters provided');
         }
 
         $data = array_filter($data, function ($key) {
-            return $key === "email" || $key === "mobile";
+            return $key === 'email' || $key === 'mobile';
         }, ARRAY_FILTER_USE_KEY);
 
-        $response = $this->session->apiClient->post("/users", [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+        $response = $this->session->apiClient->post('/users', [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ],
-            "json" => $data
+            'json' => $data
         ]);
 
         return (new User($this, ResponseParser::parse($response)));
@@ -39,16 +41,16 @@ class UserService extends Service
     public function forUser($id)
     {
         return (new User($this, [
-            "id" => $id
+            'id' => $id
         ]));
     }
 
     public function get($id)
     {
-        $response = $this->session->apiClient->get("/users/" . $id, [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+        $response = $this->session->apiClient->get('/users/'.$id, [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ]
         ]);
 
@@ -58,23 +60,23 @@ class UserService extends Service
     public function update($id, $data)
     {
         if (!isset($id)) {
-            throw new \InvalidArgumentException("No id provided");
+            throw new \InvalidArgumentException('No id provided');
         }
 
         if (!isset($data)) {
-            throw new \InvalidArgumentException("No valid parameters for update provided");
+            throw new \InvalidArgumentException('No valid parameters for update provided');
         }
 
         $data = array_filter($data, function ($key) {
-            return $key === "email" || $key === "mobile";
+            return $key === 'email' || $key === 'mobile';
         }, ARRAY_FILTER_USE_KEY);
 
-        $response = $this->session->apiClient->post("/users/" . $id, [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+        $response = $this->session->apiClient->post('/users/'.$id, [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ],
-            "json" => $data
+            'json' => $data
         ]);
         return (new User($this, ResponseParser::parse($response)));
     }
@@ -82,13 +84,13 @@ class UserService extends Service
     public function delete($id)
     {
         if (!isset($id)) {
-            throw new \InvalidArgumentException("No id provided");
+            throw new \InvalidArgumentException('No id provided');
         }
 
-        $response = $this->session->apiClient->delete("/users/" . $id, [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+        $response = $this->session->apiClient->delete('/users/'.$id, [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ]
         ]);
 
@@ -97,29 +99,29 @@ class UserService extends Service
 
     public function getAccounts($userId, $accountId = null, FilterBuilder $filter = null)
     {
-        $url = "/users/" . $userId . "/accounts";
+        $url = '/users/'.$userId.'/accounts';
 
         if ($accountId !== null) {
-            $url .= "/". $accountId;
+            $url .= '/'.$accountId;
         }
 
         if ($filter !== null) {
-            $url .= "?" . $filter->getFilter();
+            $url .= '?'.$filter->getFilter();
         }
 
         $response = $this->session->apiClient->get($url, [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ]
         ]);
 
         $body = ResponseParser::parse($response);
 
-        if (isset($body["data"]) && is_array($body["data"])) {
+        if (isset($body['data']) && is_array($body['data'])) {
             return array_map(function ($account) {
                 return new Account($account);
-            }, $body["data"]);
+            }, $body['data']);
         } else {
             return new Account($body);
         }
@@ -127,14 +129,14 @@ class UserService extends Service
 
     public function getTransactions($userId, $transactionId = null, $filter = null, $limit = null)
     {
-        $url = "/users/" . $userId . "/transactions";
+        $url = '/users/'.$userId.'/transactions';
 
         if ($transactionId !== null) {
-            $url .= "/". $transactionId;
+            $url .= '/'.$transactionId;
         }
 
         if ($filter !== null || $limit !== null) {
-            $url .= "?";
+            $url .= '?';
         }
 
         if ($filter !== null) {
@@ -142,61 +144,65 @@ class UserService extends Service
         }
 
         if ($filter !== null && $limit !== null) {
-            $url .= "&";
+            $url .= '&';
         }
 
         if ($limit !== null) {
             if ($limit > 500) {
-                throw new \Exception("Limit must be a number less than or equal to 500");
+                throw new \Exception('Limit must be a number less than or equal to 500');
             }
-            $url .= "limit=".$limit;
+            $url .= 'limit='.$limit;
         }
 
         $response = $this->session->apiClient->get($url, [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ]
         ]);
 
         $body = ResponseParser::parse($response);
 
-        if (isset($body["data"]) && is_array($body["data"])) {
-            return $this->session->getApiVersion() == "1.0" ? new TransactionList($body, $this->session, $limit) : new TransactionListV2($body, $this->session, $limit);
+        if (isset($body['data']) && is_array($body['data'])) {
+            return $this->session->getApiVersion() == '1.0' ? new TransactionList(
+                $body,
+                $this->session,
+                $limit
+            ) : new TransactionListV2($body, $this->session, $limit);
         } else {
-            return $this->session->getApiVersion() == "1.0" ? new Transaction($body) : new TransactionV2($body);
+            return $this->session->getApiVersion() == '1.0' ? new Transaction($body) : new TransactionV2($body);
         }
     }
 
     public function refreshAllConnections($userId)
     {
-        $response = $this->session->apiClient->post("users/" . $userId . "/connections/refresh", [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+        $response = $this->session->apiClient->post('users/'.$userId.'/connections/refresh', [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ]
         ]);
 
-        $connectionService = new ConnectionService($this->session, new User($this, ["id" => $userId]));
+        $connectionService = new ConnectionService($this->session, new User($this, ['id' => $userId]));
         $body = ResponseParser::parse($response);
 
         return array_map(function ($job) use ($connectionService) {
             return new Job($connectionService, $job);
-        }, $body["data"]);
+        }, $body['data']);
     }
 
-    public function getAllConnections($connectionService, $user, \MMPBasiq\utitlities\FilterBuilder $filter = null)
+    public function getAllConnections($connectionService, $user, FilterBuilder $filter = null)
     {
-        $url = "users/" . $user->id . "/connections";
+        $url = 'users/'.$user->id.'/connections';
 
         if ($filter !== null) {
-            $url .= "?" . $filter->getFilter();
+            $url .= '?'.$filter->getFilter();
         }
 
         $response = $this->session->apiClient->get($url, [
-            "headers" => [
-                "Content-type" => "application/json",
-                "Authorization" => "Bearer ".$this->session->getAccessToken()
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ]
         ]);
 
@@ -204,6 +210,28 @@ class UserService extends Service
 
         return array_map(function ($connection) use ($connectionService, $user) {
             return new Connection($connectionService, $user, $connection);
-        }, $body["data"]);
+        }, $body['data']);
+    }
+
+    public function createAffordabilitySummary($userId, $fromMonth, $toMonth)
+    {
+        $validateFromMonth = DateValidator::validate($fromMonth);
+        $validateToMonth = DateValidator::validate($toMonth);
+        if (!empty($validateFromMonth) || !empty($validateToMonth)) {
+            throw new BasiqDateValidationException();
+        }
+        $url = 'users/'.$userId.'/affordability';
+
+        $body = ['fromMonth' => $fromMonth, 'toMonth' => $toMonth];
+        $response = $this->session->apiClient->post($url, [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
+            ],
+            'json' => $body
+        ]);
+
+        $body = ResponseParser::parse($response);
+        return $body;
     }
 }

@@ -14,6 +14,8 @@ You can grab your API key on the [dashboard](http://dashboard.basiq.io).
 
 ## Changelog
 
+1.2.0 Added support for waitForAccounts, Refactored jobs search
+
 1.1.0 Added support for secondaryLoginId
 
 0.9.1beta - getTransactions now receives limit parameter. Fixed bug on refresh all connections
