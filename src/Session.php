@@ -17,10 +17,10 @@ class Session
     private $sessionTimestamp;
 
     private $tokenValidity;
-    
+
     private $apiVersion;
 
-    public function __construct($apiKey, $apiVersion="2.0")
+    public function __construct($apiKey, $apiVersion = "2.0")
     {
         $this->apiClient = new Client([
             // Base URI is used with relative requests
@@ -29,7 +29,7 @@ class Session
             "headers" => [
                 "Content-Type" => "application/json"
             ],
-            'timeout'  => 60.0,
+            'timeout' => 60.0,
             "http_errors" => false
         ]);
 
@@ -43,7 +43,7 @@ class Session
     {
         return $this->apiVersion;
     }
- 
+
     public function getAccessToken()
     {
         if (time() - $this->sessionTimestamp < $this->tokenValidity) {
@@ -62,7 +62,9 @@ class Session
             ]
         ]);
 
-        // ADD LOGIC TO CHECK FOR VALID RESPONSE
+        if ($response->getStatusCode() !== 200) {
+            $a = 'a';
+        }
 
         $this->sessionTimestamp = time();
 
@@ -85,7 +87,7 @@ class Session
 
     public function getInstitution($id)
     {
-        $response = $this->apiClient->get("/institutions/" . $id, [
+        $response = $this->apiClient->get("/institutions/".$id, [
             "headers" => [
                 "Authorization" => "Bearer ".$this->getAccessToken()
             ]

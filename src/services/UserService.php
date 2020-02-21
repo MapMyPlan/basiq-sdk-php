@@ -2,6 +2,8 @@
 
 namespace MMPBasiq\Services;
 
+use MMPBasiq\Entities\Affordability;
+use MMPBasiq\Entities\AffordabilitySummary;
 use MMPBasiq\Entities\User;
 use MMPBasiq\Entities\Job;
 use MMPBasiq\Entities\Account;
@@ -220,6 +222,10 @@ class UserService extends Service
         if (!empty($validateFromMonth) || !empty($validateToMonth)) {
             throw new BasiqDateValidationException();
         }
+        if (!DateValidator::minPeriod($fromMonth, $toMonth)) {
+            throw new BasiqDateValidationException('Min period is 3 months');
+        }
+
         $url = 'users/'.$userId.'/affordability';
 
         $body = ['fromMonth' => $fromMonth, 'toMonth' => $toMonth];
@@ -232,6 +238,6 @@ class UserService extends Service
         ]);
 
         $body = ResponseParser::parse($response);
-        return $body;
+        return new Affordability($body);
     }
 }

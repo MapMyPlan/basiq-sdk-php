@@ -17,9 +17,9 @@ class User extends Entity
     public function __construct(UserService $service, $data)
     {
         $this->id = $data["id"];
-        $this->email = isset($data["email"]) ? (string)$data["email"] : null;
-        $this->mobile = isset($data["mobile"]) ? (string)$data["mobile"] : null;
-        $this->connections = isset($data["connections"]) ? (array)$data["connections"] : [];
+        $this->email = isset($data["email"]) ? (string) $data["email"] : null;
+        $this->mobile = isset($data["mobile"]) ? (string) $data["mobile"] : null;
+        $this->connections = isset($data["connections"]) ? (array) $data["connections"] : [];
 
         $this->userService = $service;
         $this->connectionService = new ConnectionService($service->session, $this);
@@ -39,8 +39,8 @@ class User extends Entity
      * @param $institutionId
      * @param $userId
      * @param $password
-     * @param string|null $securityCode
-     * @param string|null $secondaryLoginId
+     * @param  string|null  $securityCode
+     * @param  string|null  $secondaryLoginId
      * @return Job|void
      */
     public function createConnection($institutionId, $userId, $password, $securityCode = null, $secondaryLoginId = null)
@@ -90,5 +90,10 @@ class User extends Entity
     public function refreshAllConnections()
     {
         return $this->userService->refreshAllConnections($this->id);
+    }
+
+    public function createAffordabilitySummary($monthFrom, $monthTo)
+    {
+        return $this->userService->createAffordabilitySummary($this->id, $monthFrom, $monthTo);
     }
 }

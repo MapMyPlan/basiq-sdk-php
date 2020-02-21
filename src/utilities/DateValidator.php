@@ -15,4 +15,12 @@ class DateValidator
         }
         return $errors;
     }
+
+    public static function minPeriod($from, $to)
+    {
+        $from = \DateTime::createFromFormat('Y-m', $from);
+        $to = \DateTime::createFromFormat('Y-m', $to);
+        $dif = $to->diff($from)->m;
+        return ($dif >= 3);
+    }
 }
