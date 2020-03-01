@@ -15,4 +15,18 @@ class AffordabilityLoanLiabilities
     public $previousMonth;
     /** @var LoanLiabilitiesPreviousSixMonth */
     public $previous6Months;
+
+    public function __construct($data)
+    {
+        $this->currency = $data['currency'];
+        $this->balance = $data['balance'];
+        $this->availableFunds = $data['availableFunds'];
+        $this->account = new AffordabilityAccount($data['account']['type'], $data['account']['product']);
+        $this->institution = $data['institution'];
+        $this->previousMonth = new LoanLiabilitiesPreviousMonth(
+            $data['previousMonth']['totalCredits'],
+            $data['previousMonth']['totalDebits']
+        );
+        $this->previous6Months = new LoanLiabilitiesPreviousSixMonth($data['previous6months']['arrears']);
+    }
 }

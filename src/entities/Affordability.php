@@ -14,6 +14,8 @@ class Affordability extends Entity
     public $summary;
     /** @var array */
     public $assets;
+    /** @var array  */
+    public $liabilities;
 
 
     public function __construct($body)
@@ -29,5 +31,24 @@ class Affordability extends Entity
             array_push($assets, $assetObject);
         }
         $this->assets = $assets;
+
+        $liabilities = [];
+        $bodyLiabilities = $body['liabilities'];
+        if (isset($bodyLiabilities->loan) && is_array($bodyLiabilities->loan) && !empty($bodyLiabilities->loan)) {
+            $loans = $bodyLiabilities->loan;
+            foreach ($loans as $loan) {
+                $loanObject = new AffordabilityLoanLiabilities($loan);
+                array_push($liabilities, $loanObject);
+            }
+        }
+        if (isset($bodyLiabilities->credit) && is_array($bodyLiabilities->credit) && !empty($bodyLiabilities->credit)) {
+            $credits = $bodyLiabilities->credit;
+            foreach ($credits as $credit) {
+                $creditObject = new AffordabilityCreditLiabilities($credit);
+                array_push($liabilities, $creditObject);
+            }
+        }
+
+        $this->liabilities = $liabilities;
     }
 }
