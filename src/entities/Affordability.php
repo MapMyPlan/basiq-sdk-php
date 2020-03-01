@@ -34,15 +34,15 @@ class Affordability extends Entity
 
         $liabilities = [];
         $bodyLiabilities = $body['liabilities'];
-        if (isset($bodyLiabilities->loan) && is_array($bodyLiabilities->loan) && !empty($bodyLiabilities->loan)) {
-            $loans = $bodyLiabilities->loan;
+        if (isset($bodyLiabilities['loan']) && is_array($bodyLiabilities['loan']) && !empty($bodyLiabilities['loan'])) {
+            $loans = $bodyLiabilities['loan'];
             foreach ($loans as $loan) {
                 $loanObject = new AffordabilityLoanLiabilities($loan);
                 array_push($liabilities, $loanObject);
             }
         }
-        if (isset($bodyLiabilities->credit) && is_array($bodyLiabilities->credit) && !empty($bodyLiabilities->credit)) {
-            $credits = $bodyLiabilities->credit;
+        if (isset($bodyLiabilities['credit']) && is_array($bodyLiabilities['credit']) && !empty($bodyLiabilities['credit'])) {
+            $credits = $bodyLiabilities['credit'];
             foreach ($credits as $credit) {
                 $creditObject = new AffordabilityCreditLiabilities($credit);
                 array_push($liabilities, $creditObject);
