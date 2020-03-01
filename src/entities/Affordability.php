@@ -12,6 +12,9 @@ class Affordability extends Entity
     public $generatedDate;
     /** @var AffordabilitySummary */
     public $summary;
+    /** @var array */
+    public $assets;
+
 
     public function __construct($body)
     {
@@ -19,6 +22,12 @@ class Affordability extends Entity
         $this->fromMonth = $body['fromMonth'];
         $this->toMonth = $body['toMonth'];
         $this->generatedDate = $body['generatedDate'];
-        $body->summary = new AffordabilitySummary($body['summary']);
+        $this->summary = new AffordabilitySummary($body['summary']);
+        $assets = [];
+        foreach ($body['assets'] as $asset) {
+            $assetObject = new AffordabilityAssets($asset);
+            array_push($assets, $assetObject);
+        }
+        $this->assets = $assets;
     }
 }

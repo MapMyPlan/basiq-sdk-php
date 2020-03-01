@@ -8,6 +8,7 @@ class AffordabilityLoanLiabilities
     public $currency;
     public $balance;
     public $availableFunds;
+    /** @var AffordabilityAccount */
     public $account;
     public $institution;
     /** @var LoanLiabilitiesPreviousMonth */
