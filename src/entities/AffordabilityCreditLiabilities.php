@@ -30,7 +30,7 @@ class AffordabilityCreditLiabilities
             $data['previousMonth']['minBalance'],
             $data['previousMonth']['maxBalance'],
         );
-        $this->previous6Months = new CreditLiabilitiesPreviousSixMonths($data['previous6months']['cashAdvances']);
+        $this->previous6Months = new CreditLiabilitiesPreviousSixMonths($data['previous6Months']['cashAdvances']);
         $this->creditLimit = $data['creditLimit'];
     }
 }
