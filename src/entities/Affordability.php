@@ -53,5 +53,6 @@ class Affordability extends Entity
         $this->liabilities = $liabilities;
         $this->incomeLink = $body['links']['income'];
         $this->expenseLink = $body['links']['expenses'];
+        // TODO Add expenses and income mapping
     }
 }
