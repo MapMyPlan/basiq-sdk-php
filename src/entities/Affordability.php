@@ -16,6 +16,8 @@ class Affordability extends Entity
     public $assets;
     /** @var array  */
     public $liabilities;
+    public $incomeLink;
+    public $expenseLink;
 
 
     public function __construct($body)
@@ -48,7 +50,8 @@ class Affordability extends Entity
                 array_push($liabilities, $creditObject);
             }
         }
-
         $this->liabilities = $liabilities;
+        $this->incomeLink = $body['links']['income'];
+        $this->expenseLink = $body['links']['expenses'];
     }
 }
