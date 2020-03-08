@@ -6,9 +6,9 @@ namespace MMPBasiq\Entities;
 class AffordabilityOtherCreditSource
 {
     public $source;
-    public $ageDay;
+    public $ageDays;
     public $amountAvg;
-    public $avgMonthlyOccurrence;
+    public $avgMonthlyOccurence;
     /**
      * @var AffordabilityIrregularIncomeCurrent
      */
@@ -22,9 +22,9 @@ class AffordabilityOtherCreditSource
     public function __construct($body)
     {
         $this->source = $body['source'];
-        $this->ageDay = $body['ageDay'];
+        $this->ageDays = $body['ageDays'];
         $this->amountAvg = $body['amountAvg'];
-        $this->avgMonthlyOccurrence = $body['avgMonthlyOccurrence'];
+        $this->avgMonthlyOccurence = $body['avgMonthlyOccurence'];
         $this->current = new AffordabilityOtherCreditSourceCurrent($body['current']);
         $changeArray = [];
         foreach ($body['changeHistory'] as $changeHistory) {

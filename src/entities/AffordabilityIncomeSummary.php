@@ -5,16 +5,16 @@ namespace MMPBasiq\Entities;
 
 class AffordabilityIncomeSummary
 {
-    public $regularIncome;
+    public $regularIncomeAvg;
     public $regularIncomeYTD;
     public $regularIncomeYear;
-    public $irregularIncomeYear;
+    public $irregularIncomeAvg;
 
     public function __construct($body)
     {
-        $this->regularIncome = $body['regularIncome'];
+        $this->regularIncomeAvg = $body['regularIncomeAvg'];
         $this->regularIncomeYTD = $body['regularIncomeYTD'];
         $this->regularIncomeYear = $body['regularIncomeYear'];
-        $this->irregularIncomeYear = $body['irregularIncomeYear'];
+        $this->irregularIncomeAvg = $body['irregularIncomeAvg'];
     }
 }
