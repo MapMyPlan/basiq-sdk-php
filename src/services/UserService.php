@@ -3,6 +3,7 @@
 namespace MMPBasiq\Services;
 
 use MMPBasiq\Entities\Affordability;
+use MMPBasiq\Entities\AffordabilityIncome;
 use MMPBasiq\Entities\AffordabilitySummary;
 use MMPBasiq\Entities\User;
 use MMPBasiq\Entities\Job;
@@ -239,5 +240,23 @@ class UserService extends Service
 
         $body = ResponseParser::parse($response);
         return new Affordability($body);
+    }
+
+    public function fetchIncomeSummary($userId, $incomeSummaryLink)
+    {
+        $explode = explode('/', $incomeSummaryLink);
+        $incomeSummaryId = last($explode);
+        $url = 'users/'.$userId.'/income/'.$incomeSummaryId;
+        $response = $this->session->apiClient->get(
+            $url,
+            [
+                'headers' => [
+                    'Content-type' => 'application/json',
+                    'Authorization' => 'Bearer '.$this->session->getAccessToken()
+                ]
+            ]
+        );
+        $body = ResponseParser::parse($response);
+        return new AffordabilityIncome($body);
     }
 }
