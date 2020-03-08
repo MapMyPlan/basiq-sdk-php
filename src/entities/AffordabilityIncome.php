@@ -9,8 +9,8 @@ class AffordabilityIncome extends Entity
     public $type = 'income';
     public $fromMonth;
     public $toMonth;
-    public $generateDays;
-    public $generateDate;
+    public $coverageDays;
+    public $generateDate = null;
     /** @var AffordabilityIncomeSummary */
     public $summary;
     /**
@@ -31,8 +31,10 @@ class AffordabilityIncome extends Entity
         $this->id = $body['id'];
         $this->fromMonth = $body['fromMonth'];
         $this->toMonth = $body['toMonth'];
-        $this->generateDays = $body['generatedDays'];
-        $this->generateDate = $body['generatedDates'];
+        $this->coverageDays = $body['coverageDays'];
+        if (isset($body['generatedDate'])) {
+            $this->generateDate = $body['generatedDate'];
+        }
         $this->summary = new AffordabilityIncomeSummary($body['summary']);
         $regularIncome = [];
         foreach ($body['regular'] as $item) {
