@@ -219,7 +219,7 @@ class UserService extends Service
 
     public function deleteConnection($connectionId, $userId)
     {
-        $url = 'user/'.$userId.'/connection/'.$connectionId;
+        $url = 'user/'.$userId.'/connections/'.$connectionId;
         $response = $this->session->apiClient->delete($url);
         return ($response->getStatusCode() === 204);
     }
