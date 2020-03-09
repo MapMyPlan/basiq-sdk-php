@@ -27,7 +27,7 @@ class AffordabilityExpensePaymentSubCategory extends Entity
     {
         $this->summary = $body['summary'];
         $category = $body['category'];
-        $this->class = new ExpenseCategoryCode($category['class']);
+        $this->class = new ExpenseCategoryCode($category['expenseClass']);
         $changeHistory = [];
         foreach ($body['changeHistory'] as $item) {
             array_push($changeHistory, new AffordabilityExpensePaymentChangeHistory($item));
