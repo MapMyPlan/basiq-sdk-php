@@ -97,8 +97,13 @@ class User extends Entity
         return $this->userService->createAffordabilitySummary($this->id, $monthFrom, $monthTo);
     }
 
-    public function fetchAffordabilitySummary($affordabilityIncomeLink)
+    public function fetchAffordabilityIncomeSummary($affordabilityIncomeLink)
     {
         return $this->userService->fetchIncomeSummary($this->id, $affordabilityIncomeLink);
+    }
+
+    public function fetchAffordabilityExpenseSummary($affordabilityExpenseLink)
+    {
+        return $this->userService->fetchExpensesSummary($this->id, $affordabilityExpenseLink);
     }
 }
