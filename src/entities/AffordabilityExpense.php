@@ -6,7 +6,7 @@ namespace MMPBasiq\Entities;
 class AffordabilityExpense extends Entity
 {
     public $id;
-    public $type = 'income';
+    public $type = 'expense';
     public $fromMonth;
     public $toMonth;
     public $payments;
