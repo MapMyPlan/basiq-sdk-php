@@ -56,7 +56,7 @@ class User extends Entity
         return $this->connectionService->create($data);
     }
 
-    public function getAllConnections()
+    public function getAllConnections($filterBuilder = null)
     {
         if ($this->connections && count($this->connections) > 0) {
             return array_map(function ($value) {
@@ -64,7 +64,7 @@ class User extends Entity
             }, $this->connections);
         }
 
-        return $this->userService->getAllConnections($this->connectionService, $this);
+        return $this->userService->getAllConnections($this->connectionService, $this, $filterBuilder);
     }
 
     public function getAccounts($connectionId = null)
