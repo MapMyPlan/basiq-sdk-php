@@ -61,6 +61,10 @@ class User extends Entity
         return $this->userService->getAllConnections($this->connectionService, $this, $filterBuilder);
     }
 
+    public function deleteConnection($connectionId) {
+        return $this->userService->deleteConnection($connectionId, $this->id);
+    }
+
     public function getAccounts($connectionId = null)
     {
         return $this->userService->getAccounts($this->id, null, $connectionId);
