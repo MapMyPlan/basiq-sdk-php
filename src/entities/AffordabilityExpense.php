@@ -22,7 +22,7 @@ class AffordabilityExpense extends Entity
         $this->toMonth = $body['toMonth'];
         $payments = [];
         foreach ($body['payments'] as $payment) {
-            array_push($payments, $payment);
+            array_push($payments, new AffordabilityExpensePayment($payment));
         }
         $this->payments = $payments;
         if (isset($body['cashWithdrawals'])) {
