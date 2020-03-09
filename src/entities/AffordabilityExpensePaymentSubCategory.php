@@ -23,6 +23,9 @@ class AffordabilityExpensePaymentSubCategory extends Entity
      */
     public $division;
 
+    /** @var array  */
+    public $changeHistory;
+
     public function __construct($body)
     {
         $this->summary = $body['summary'];
@@ -32,5 +35,6 @@ class AffordabilityExpensePaymentSubCategory extends Entity
         foreach ($body['changeHistory'] as $item) {
             array_push($changeHistory, new AffordabilityExpensePaymentChangeHistory($item));
         }
+        $this->changeHistory = $changeHistory;
     }
 }
