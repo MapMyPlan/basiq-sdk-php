@@ -9,19 +9,7 @@ class AffordabilityExpensePaymentSubCategory extends Entity
     /**
      * @var Null|ExpenseCategoryCode
      */
-    public $class;
-    /**
-     * @var Null|ExpenseCategoryCode
-     */
-    public $group;
-    /**
-     * @var Null|ExpenseCategoryCode
-     */
-    public $subDivision;
-    /**
-     * @var Null|ExpenseCategoryCode
-     */
-    public $division;
+    public $category;
 
     /** @var array  */
     public $changeHistory;
@@ -30,7 +18,7 @@ class AffordabilityExpensePaymentSubCategory extends Entity
     {
         $this->summary = $body['summary'];
         $category = $body['category'];
-        $this->class = new ExpenseCategoryCode($category['expenseClass']);
+        $this->category = new ExpenseCategoryCode($category['expenseClass']);
         $changeHistory = [];
         foreach ($body['changeHistory'] as $item) {
             array_push($changeHistory, new AffordabilityExpensePaymentChangeHistory($item));
