@@ -13,6 +13,8 @@ class AffordabilityExpensePayment extends Entity
      * @var array
      */
     public $subCategories;
+    /** @var array  */
+    public $changeHistory;
 
     public function __construct($body)
     {
@@ -24,5 +26,10 @@ class AffordabilityExpensePayment extends Entity
             array_push($subCategories, new AffordabilityExpensePaymentSubCategory($subCategory));
         }
         $this->subCategories = $subCategories;
+        $changeHistory = [];
+        foreach ($body['changeHistory'] as $item) {
+            array_push($changeHistory, new AffordabilityExpensePaymentChangeHistory($item));
+        }
+        $this->changeHistory = $changeHistory;
     }
 }
