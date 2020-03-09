@@ -3,6 +3,7 @@
 namespace MMPBasiq\Services;
 
 use MMPBasiq\Entities\Affordability;
+use MMPBasiq\Entities\AffordabilityExpense;
 use MMPBasiq\Entities\AffordabilityIncome;
 use MMPBasiq\Entities\AffordabilitySummary;
 use MMPBasiq\Entities\User;

@@ -13,6 +13,7 @@ class AffordabilityExpense extends Entity
     public $cashWithdrawals;
     public $bankFees;
     public $externalTransfers;
+    public $loanInterests;
 
     public function __construct($body)
     {
@@ -32,6 +33,9 @@ class AffordabilityExpense extends Entity
         }
         if (isset($body['externalTransfers'])) {
             $this->externalTransfers = new AffordabilityExpensesOtherOutgoings($body['externalTransfers']);
+        }
+        if (isset($body['loanInterests'])) {
+            $this->loanInterests = new AffordabilityExpensesOtherOutgoings($body['loanInterests']);
         }
     }
 }
