@@ -217,6 +217,13 @@ class UserService extends Service
         }, $body['data']);
     }
 
+    public function deleteConnection($connectionId, $userId)
+    {
+        $url = 'user/'.$userId.'/connection/'.$connectionId;
+        $response = $this->session->apiClient->delete($url);
+        return ($response->getStatusCode() === 204);
+    }
+
     public function createAffordabilitySummary($userId, $fromMonth, $toMonth)
     {
         $validateFromMonth = DateValidator::validate($fromMonth);
