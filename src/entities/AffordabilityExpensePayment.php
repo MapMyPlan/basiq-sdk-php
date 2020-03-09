@@ -7,7 +7,7 @@ class AffordabilityExpensePayment extends Entity
 {
 
     public $division;
-    public $averageMonthly;
+    public $avgMonthly;
     public $percentageTotal;
     /**
      * @var array
@@ -17,7 +17,7 @@ class AffordabilityExpensePayment extends Entity
     public function __construct($body)
     {
         $this->division = $body['division'];
-        $this->averageMonthly = $body['averageMonthly'];
+        $this->avgMonthly = $body['avgMonthly'];
         $this->percentageTotal = $body['percentageTotal'];
         $subCategories = [];
         foreach ($body['subCategory'] as $subCategory) {
