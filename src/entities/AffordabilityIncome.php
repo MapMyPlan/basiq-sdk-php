@@ -20,7 +20,7 @@ class AffordabilityIncome extends Entity
     /**
      * @var array
      */
-    protected $irregular;
+    public $irregular;
     /**
      * @var array
      */
