@@ -101,6 +101,13 @@ class UserService extends Service
         return null;
     }
 
+    /**
+     * @param $userId
+     * @param  null  $accountId
+     * @param  FilterBuilder|null  $filter
+     * @return array|Account
+     * @throws \MMPBasiq\Exceptions\HttpResponseException
+     */
     public function getAccounts($userId, $accountId = null, FilterBuilder $filter = null)
     {
         $url = '/users/'.$userId.'/accounts';
