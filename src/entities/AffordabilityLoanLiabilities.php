@@ -27,6 +27,10 @@ class AffordabilityLoanLiabilities
             $data['previousMonth']['totalCredits'],
             $data['previousMonth']['totalDebits']
         );
-        $this->previous6Months = new LoanLiabilitiesPreviousSixMonth($data['previous6Months']['arrears']);
+        if (isset($data['previous6Months'])) {
+            $this->previous6Months = new LoanLiabilitiesPreviousSixMonth($data['previous6Months']['arrears']);
+        } else {
+            $this->previous6Months = new LoanLiabilitiesPreviousSixMonth(0);
+        }
     }
 }
