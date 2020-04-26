@@ -14,7 +14,7 @@ class Affordability extends Entity
     public $summary;
     /** @var array */
     public $assets;
-    /** @var array  */
+    /** @var array */
     public $liabilities;
     public $incomeLink;
     public $expenseLink;
@@ -34,20 +34,20 @@ class Affordability extends Entity
         }
         $this->assets = $assets;
 
-        $liabilities = [];
+        $liabilities = ['loan' => [], 'credit' => []];
         $bodyLiabilities = $body['liabilities'];
         if (isset($bodyLiabilities['loan']) && is_array($bodyLiabilities['loan']) && !empty($bodyLiabilities['loan'])) {
             $loans = $bodyLiabilities['loan'];
             foreach ($loans as $loan) {
                 $loanObject = new AffordabilityLoanLiabilities($loan);
-                array_push($liabilities, $loanObject);
+                array_push($liabilities['loan'], $loanObject);
             }
         }
         if (isset($bodyLiabilities['credit']) && is_array($bodyLiabilities['credit']) && !empty($bodyLiabilities['credit'])) {
             $credits = $bodyLiabilities['credit'];
             foreach ($credits as $credit) {
                 $creditObject = new AffordabilityCreditLiabilities($credit);
-                array_push($liabilities, $creditObject);
+                array_push($liabilities['credit'], $creditObject);
             }
         }
         $this->liabilities = $liabilities;
