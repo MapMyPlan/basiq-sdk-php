@@ -15,6 +15,8 @@ class AffordabilityLoanLiabilities
     public $previousMonth;
     /** @var LoanLiabilitiesPreviousSixMonth */
     public $previous6Months;
+    /** @var array */
+    public $changeHistory;
 
     public function __construct($data)
     {
@@ -32,5 +34,11 @@ class AffordabilityLoanLiabilities
         } else {
             $this->previous6Months = new LoanLiabilitiesPreviousSixMonth(0);
         }
+        $changeHistory = [];
+        foreach ($data['changeHistory'] as $change) {
+            $entity = new LoanLiabilitiesChangeHistory($change);
+            array_push($changeHistory, $entity);
+        }
+        $this->changeHistory = $changeHistory;
     }
 }
