@@ -28,9 +28,12 @@ class Affordability extends Entity
         $this->generatedDate = $body['generatedDate'];
         $this->summary = new AffordabilitySummary($body['summary']);
         $assets = [];
-        foreach ($body['assets'] as $asset) {
-            $assetObject = new AffordabilityAssets($asset);
-            array_push($assets, $assetObject);
+        $assetsResponse = $body['assets'];
+        if (is_array($assetsResponse)) {
+            foreach ($assetsResponse as $asset) {
+                $assetObject = new AffordabilityAssets($asset);
+                array_push($assets, $assetObject);
+            }
         }
         $this->assets = $assets;
 
