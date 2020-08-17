@@ -265,6 +265,19 @@ class UserService extends Service
         return new Affordability($body);
     }
 
+    public function fetchAffordabilitySummary($userId, $affordabilityId)
+    {
+        $url = 'users/'.$userId.'/affordability/'.$affordabilityId;
+        $response = $this->session->apiClient->get($url, [
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->session->getAccessToken()
+            ]
+        ]);
+        $body = ResponseParser::parse($response);
+        return new Affordability($body);
+    }
+
     public function fetchIncomeSummary($userId, $incomeSummaryLink)
     {
         $explode = explode('/', $incomeSummaryLink);
