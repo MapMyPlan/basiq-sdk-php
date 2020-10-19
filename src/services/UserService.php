@@ -239,7 +239,7 @@ class UserService extends Service
         return ($response->getStatusCode() === 204);
     }
 
-    public function createAffordabilitySummary($userId, $fromMonth, $toMonth)
+    final public function createAffordabilitySummary($userId, $fromMonth, $toMonth)
     {
         $validateFromMonth = DateValidator::validate($fromMonth);
         $validateToMonth = DateValidator::validate($toMonth);
@@ -253,16 +253,16 @@ class UserService extends Service
         $url = 'users/'.$userId.'/affordability';
 
         $body = ['fromMonth' => $fromMonth, 'toMonth' => $toMonth];
-        $response = $this->session->apiClient->post($url, [
+        return $this->session->apiClient->postAsync($url, [
             'headers' => [
                 'Content-type' => 'application/json',
                 'Authorization' => 'Bearer '.$this->session->getAccessToken()
             ],
             'json' => $body
-        ]);
-
-        $body = ResponseParser::parse($response);
-        return new Affordability($body);
+        ])->then(function ($response) {
+            $body = ResponseParser::parse($response);
+            return new Affordability($body);
+        });
     }
 
     public function fetchAffordabilitySummary($userId, $affordabilityId)
