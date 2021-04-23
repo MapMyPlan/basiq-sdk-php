@@ -3,7 +3,9 @@
 
 namespace MMPBasiq\Exceptions;
 
-class BasiqDateValidationException extends \Exception
+use Exception;
+
+class BasiqDateValidationException extends Exception
 {
     public $response;
     public $statusCode;

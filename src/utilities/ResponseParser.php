@@ -2,6 +2,7 @@
 
 namespace MMPBasiq\Utilities;
 
+use Exception;
 use MMPBasiq\Exceptions\HttpResponseException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -16,7 +17,7 @@ class ResponseParser
             $body = json_decode($contents, true);
         
             if ($body === null) {
-                throw new \Exception("Invalid response received from server. Check log for the response");
+                throw new Exception("Invalid response received from server. Check log for the response");
             }
 
             if ($response->getStatusCode() > 299) {

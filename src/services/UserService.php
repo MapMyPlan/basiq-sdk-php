@@ -2,10 +2,11 @@
 
 namespace MMPBasiq\Services;
 
+use Exception;
+use InvalidArgumentException;
 use MMPBasiq\Entities\Affordability;
 use MMPBasiq\Entities\AffordabilityExpense;
 use MMPBasiq\Entities\AffordabilityIncome;
-use MMPBasiq\Entities\AffordabilitySummary;
 use MMPBasiq\Entities\User;
 use MMPBasiq\Entities\Job;
 use MMPBasiq\Entities\Account;
@@ -15,6 +16,7 @@ use MMPBasiq\Entities\TransactionV2;
 use MMPBasiq\Entities\TransactionListV2;
 use MMPBasiq\Entities\Connection;
 use MMPBasiq\Exceptions\BasiqDateValidationException;
+use MMPBasiq\Exceptions\HttpResponseException;
 use MMPBasiq\Utilities\DateValidator;
 use MMPBasiq\Utilities\ResponseParser;
 use MMPBasiq\Utilities\FilterBuilder;
@@ -24,7 +26,7 @@ class UserService extends Service
     public function create($data = [])
     {
         if (!isset($data['email']) && !isset($data['mobile'])) {
-            throw new \InvalidArgumentException('No valid parameters provided');
+            throw new InvalidArgumentException('No valid parameters provided');
         }
 
         $data = array_filter($data, function ($key) {
@@ -64,11 +66,11 @@ class UserService extends Service
     public function update($id, $data)
     {
         if (!isset($id)) {
-            throw new \InvalidArgumentException('No id provided');
+            throw new InvalidArgumentException('No id provided');
         }
 
         if (!isset($data)) {
-            throw new \InvalidArgumentException('No valid parameters for update provided');
+            throw new InvalidArgumentException('No valid parameters for update provided');
         }
 
         $data = array_filter($data, function ($key) {
@@ -88,10 +90,10 @@ class UserService extends Service
     public function delete($id)
     {
         if (!isset($id)) {
-            throw new \InvalidArgumentException('No id provided');
+            throw new InvalidArgumentException('No id provided');
         }
 
-        $response = $this->session->apiClient->delete('/users/'.$id, [
+        $this->session->apiClient->delete('/users/'.$id, [
             'headers' => [
                 'Content-type' => 'application/json',
                 'Authorization' => 'Bearer '.$this->session->getAccessToken()
@@ -106,7 +108,7 @@ class UserService extends Service
      * @param  null  $accountId
      * @param  FilterBuilder|null  $filter
      * @return array|Account
-     * @throws \MMPBasiq\Exceptions\HttpResponseException
+     * @throws HttpResponseException
      */
     public function getAccounts($userId, $accountId = null, FilterBuilder $filter = null)
     {
@@ -160,7 +162,7 @@ class UserService extends Service
 
         if ($limit !== null) {
             if ($limit > 500) {
-                throw new \Exception('Limit must be a number less than or equal to 500');
+                throw new Exception('Limit must be a number less than or equal to 500');
             }
             $url .= 'limit='.$limit;
         }
@@ -281,7 +283,7 @@ class UserService extends Service
     public function fetchIncomeSummary($userId, $incomeSummaryLink)
     {
         $explode = explode('/', $incomeSummaryLink);
-        $incomeSummaryId = last($explode);
+        $incomeSummaryId = end($explode);
         $url = 'users/'.$userId.'/income/'.$incomeSummaryId;
         $response = $this->session->apiClient->get(
             $url,
@@ -299,7 +301,7 @@ class UserService extends Service
     public function fetchExpensesSummary($userId, $expenseSummaryLink)
     {
         $explode = explode('/', $expenseSummaryLink);
-        $expenseSummaryId = last($explode);
+        $expenseSummaryId = end($explode);
         $url = 'users/'.$userId.'/expenses/'.$expenseSummaryId;
         $response = $this->session->apiClient->get(
             $url,

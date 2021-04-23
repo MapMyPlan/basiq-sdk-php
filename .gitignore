@@ -3,3 +3,4 @@ vendor/
 index.php
 log
 example/
+code-inspection.log
