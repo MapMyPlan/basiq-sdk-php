@@ -2,6 +2,7 @@
 
 namespace MMPBasiq\Services;
 
+use InvalidArgumentException;
 use MMPBasiq\Entities\Connection;
 use MMPBasiq\Entities\Job;
 use MMPBasiq\Utilities\ResponseParser;
@@ -19,7 +20,7 @@ class ConnectionService extends Service
     public function create($data = [])
     {
         if (!isset($data["institutionId"]) || !isset($data["loginId"]) || !isset($data["password"])) {
-            throw new \InvalidArgumentException("Invalid parameters provided");
+            throw new InvalidArgumentException("Invalid parameters provided");
         }
 
         $data = array_filter($data, function ($key) {
@@ -47,7 +48,7 @@ class ConnectionService extends Service
     public function update($connectionId, $password)
     {
         if (!isset($password)) {
-            throw new \InvalidArgumentException("Invalid parameters provided");
+            throw new InvalidArgumentException("Invalid parameters provided");
         }
 
         $response = $this->session->apiClient->post("users/" . $this->user->id . "/connections/" . $connectionId, [

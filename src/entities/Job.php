@@ -5,6 +5,7 @@ namespace MMPBasiq\Entities;
 use MMPBasiq\Exceptions\BasiqJobFailed;
 use MMPBasiq\Exceptions\BasiqJobTimeoutException;
 use MMPBasiq\Services\ConnectionService;
+use DateTime;
 
 class Job extends Entity
 {
@@ -18,10 +19,10 @@ class Job extends Entity
     public function __construct(ConnectionService $service, $data)
     {
         $this->id = $data["id"];
-        $this->created = isset($data["created"]) ? new \DateTime($data["created"]) : null;
-        $this->updated = isset($data["updated"]) ? new \DateTime($data["updated"]) : null;
+        $this->created = isset($data["created"]) ? new DateTime($data["created"]) : null;
+        $this->updated = isset($data["updated"]) ? new DateTime($data["updated"]) : null;
         $this->steps = isset($data["steps"]) ? (array) $data["steps"] : [];
-        $this->links = isset($data["links"]) ? $data["links"] : [];
+        $this->links = $data["links"] ?? [];
         $this->service = $service;
     }
 
@@ -117,6 +118,5 @@ class Job extends Entity
             return $value['title'] == $title;
         });
         return !empty($steps) ? reset($steps) : [];
-
     }
 }

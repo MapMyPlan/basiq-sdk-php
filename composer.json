@@ -1,6 +1,8 @@
 {
     "name": "mapmyplan/basiq-sdk-php",
     "require": {
+        "php": "^7.3",
+        "ext-json": "*",
         "guzzlehttp/guzzle": "~6.0|~7.0"
     },
     "description": "PHP SDK for Basiq.io API",

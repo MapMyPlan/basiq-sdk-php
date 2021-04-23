@@ -3,6 +3,7 @@
 namespace MMPBasiq;
 
 use GuzzleHttp\Client;
+use MMPBasiq\Exceptions\HttpResponseException;
 use MMPBasiq\Utilities\ResponseParser;
 use MMPBasiq\Services\UserService;
 
@@ -63,7 +64,7 @@ class Session
         ]);
 
         if ($response->getStatusCode() !== 200) {
-            $a = 'a';
+            throw new HttpResponseException('Access Token not received', $response->getStatusCode());
         }
 
         $this->sessionTimestamp = time();

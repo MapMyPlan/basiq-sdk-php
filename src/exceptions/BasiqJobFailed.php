@@ -3,7 +3,9 @@
 
 namespace MMPBasiq\Exceptions;
 
-class BasiqJobFailed extends \Exception
+use Exception;
+
+class BasiqJobFailed extends Exception
 {
     public $response;
     public $statusCode;

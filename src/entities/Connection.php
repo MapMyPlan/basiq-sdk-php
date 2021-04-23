@@ -2,6 +2,7 @@
 
 namespace MMPBasiq\Entities;
 
+use DateTime;
 use MMPBasiq\Services\ConnectionService;
 
 class Connection extends Entity
@@ -20,8 +21,8 @@ class Connection extends Entity
     {
         $this->id = $data["id"];
         $this->status = isset($data["status"]) ? (string) $data["status"] : null;
-        $this->lastUsed = isset($data["lastUsed"]) ? new \DateTime($data["lastUsed"]) : null;
-        $this->institution = isset($data["institution"]) ? $data["institution"] : null;
+        $this->lastUsed = isset($data["lastUsed"]) ? new DateTime($data["lastUsed"]) : null;
+        $this->institution = $data["institution"] ?? null;
         $this->accounts = isset($data["accounts"]) ? (array)$data["accounts"] : [];
 
         $this->user = $user;
@@ -29,12 +30,12 @@ class Connection extends Entity
         $this->service = $service;
     }
 
-    public function update($data)
+    public function update($data): Job
     {
         return $this->service->update($this->id, $data);
     }
 
-    public function refresh()
+    public function refresh(): Job
     {
         return $this->service->refresh($this->id);
     }
